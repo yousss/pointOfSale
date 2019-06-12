@@ -5,22 +5,23 @@ namespace Modules\User\Database\factories;
 use App\Model;
 use Faker\Generator as Faker;
 
-$factory->define(Model::class, function (Faker $faker) {
+$factory->define(Modules\User\Entities\Role::class, function (Faker $faker) {
     return [
-        ['name' => 'admin',
+        // [
+            'name' => 'admin',
         'display_name' => 'administrator',
         'description' => 'admin is allowed to manage and edit other users'
-        ],
-        [
-        'name' => 'cashier',
-        'display_name' => 'cashier',
-        'description' => 'cashier can only post products and insert them into inventories'
-        ],
-        [
-            'name' => 'owner',
-            'display_name' => 'shop owner',
-            'description' => 'shop owner can see any reports of inventories availability, revenues, staffing'
-        ],
+        // ],
+        // [
+        // 'name' => 'cashier',
+        // 'display_name' => 'cashier',
+        // 'description' => 'cashier can only post products and insert them into inventories'
+        // ],
+        // [
+        //     'name' => 'owner',
+        //     'display_name' => 'shop owner',
+        //     'description' => 'shop owner can see any reports of inventories availability, revenues, staffing'
+        // ],
         
     ];
 });
