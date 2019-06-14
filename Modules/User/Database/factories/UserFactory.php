@@ -4,7 +4,7 @@ namespace Modules\User\Database\factories;
 
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
-
+use Modules\User\Entities\User;
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -16,7 +16,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(Modules\User\Entities\User::class, function (Faker $faker) {
+$factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,

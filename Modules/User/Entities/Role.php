@@ -7,5 +7,5 @@ use Zizaco\Entrust\EntrustRole;
 
 class Role extends EntrustRole
 {
-    protected $fillable = [];
+    protected $fillable = ['id', 'name', 'display_name'];
 }

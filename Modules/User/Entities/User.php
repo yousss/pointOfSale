@@ -1,5 +1,5 @@
 <?php
-namespace App\Modules\User\Entities;
+namespace Modules\User\Entities;
 
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
