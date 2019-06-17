@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Factory;
 
 class UserServiceProvider extends ServiceProvider
 {
+
+    private $providers = [
+        'User'
+    ];
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -36,6 +40,16 @@ class UserServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+        
+        foreach ( $this->providers as $provider ) {
+            $this->app->bind("Modules\\User\\Repositories\\Contracts\\I{$provider}Repository", function () use ($provider) {
+                return app("Modules\\User\\Repositories\\Eloquents\\{$provider}Repository");
+            });
+        }
+
+        $this->app->bind("Modules\\User\\Repositories\\IWrapperRepository", function ()  {
+            return app("Modules\\User\\Repositories\\WrapperRepository");
+        });
     }
 
     /**
