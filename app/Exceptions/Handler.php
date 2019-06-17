@@ -104,7 +104,7 @@ class Handler extends ExceptionHandler
                 break;
         }
 
-        if (!config('app.debug')) {
+        if (config('app.debug')) {
             $response['trace'] = $exception->getTrace();
             $response['code'] = $exception->getCode();
         }
