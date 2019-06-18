@@ -36,7 +36,7 @@ class PermissionController extends Controller
      */
     public function store(PermissionResource $request)
     {
-        return new PermissionResource($this->repo->create($request));
+        return new PermissionResource($this->repo->create($request->all()));
     }
 
     /**
