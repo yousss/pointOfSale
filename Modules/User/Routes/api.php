@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 Route::post('login', 'PassportController@login');
 Route::post('register', 'PassportController@register');
  
-Route::middleware('auth:api')->group(function () {
-    Route::get('user', 'PassportController@details');
+Route::group(['prefix' => 'admin',  'middleware' => 'auth:api'], function () {
+    Route::resource('users', 'UserController');
+    Route::resource('permissions', 'PermissionController')->except(['create']);
 });

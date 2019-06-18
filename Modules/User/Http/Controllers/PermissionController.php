@@ -5,15 +5,19 @@ namespace Modules\User\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\User\Http\Requests\PermissionRequest;
 use Modules\User\Repositories\IWrapperRepository;
-use Modules\User\Transformers\UserResource;
+use Modules\User\Transformers\PermissionResource;
 
-class UserController extends Controller
+
+class PermissionController extends Controller
 {
-    private $repo;
 
-    public function __construct( IWrapperRepository $repo ) {
-        $this->repo = $repo->getUserRepository();
+    private $repo; 
+
+    public function __construct( IWrapperRepository $repo ) 
+    {
+        $this->repo = $repo->getPermissionRepository();
     }
     /**
      * Display a listing of the resource.
@@ -21,26 +25,18 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection($this->repo->simplePaginate(10));
+        return PermissionResource::collection($this->repo->paginate(10));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
-    public function create()
-    {
-        return view('user::create');
-    }
 
     /**
      * Store a newly created resource in storage.
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(PermissionResource $request)
     {
-        //
+        return new PermissionResource($this->repo->create($request));
     }
 
     /**
@@ -50,7 +46,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return view('user::show');
+        return new PermissionResource($this->repo->find($id));
     }
 
     /**
@@ -60,7 +56,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return new UserResource($this->repo->find($id));
+        return new PermissionResource($this->repo->find($id));
     }
 
     /**
@@ -69,9 +65,9 @@ class UserController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(PermissionRequest $request, $id)
     {
-        
+        return new PermissionResource($this->repo->update($request->all(), $id));
     }
 
     /**
@@ -81,6 +77,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if($this->repo->delete($id))
+            return response()->json( null, 204 );
+
+        return response()->json( ['errors' => 'Unable to delete this resource' ], 422);
     }
 }

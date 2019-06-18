@@ -3,17 +3,17 @@
 namespace Modules\User\Repositories\Eloquents;
 
 use Prettus\Repository\Eloquent\BaseRepository;
-use Modules\User\Repositories\Contracts\IUserRepository;
-use Modules\User\Entities\User;
+use Modules\User\Repositories\Contracts\IPermissionRepository;
+use Modules\User\Entities\Permission;
 
-class UserRepository extends BaseRepository implements IUserRepository {
+class PermissionRepository extends BaseRepository implements IPermissionRepository {
     
     /**
      * Load model to use in abstract class
      * @return class name
      */
     public function model () {
-        return User::class;
+        return Permission::class;
     }
 
 }

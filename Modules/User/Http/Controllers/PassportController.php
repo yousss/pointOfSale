@@ -43,13 +43,14 @@ class PassportController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(UserRequest $request)
+    public function login( Request $request )
     {
+        
         $credentials = [
             'email' => $request->email,
             'password' => $request->password
         ];
- 
+
         if (auth()->attempt($credentials)) {
             $token = auth()->user()->createToken('pointOfSale')->accessToken;
             return response()->json(['token' => $token], 200);
@@ -67,4 +68,16 @@ class PassportController extends Controller
     {
         return response()->json(['user' => auth()->user()], 200);
     }
+
+    public function logout()
+    { 
+        if ( Auth::check() ) {
+            $tokens = Auth::user()->tokens();
+            foreach( $tokens as $token ) {
+                $token->revoke();   
+            }
+            return response()->json(null, 200);          
+        }
+    }
+
 }

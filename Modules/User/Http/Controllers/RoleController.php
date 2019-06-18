@@ -5,23 +5,16 @@ namespace Modules\User\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\User\Repositories\IWrapperRepository;
-use Modules\User\Transformers\UserResource;
 
-class UserController extends Controller
+class RoleController extends Controller
 {
-    private $repo;
-
-    public function __construct( IWrapperRepository $repo ) {
-        $this->repo = $repo->getUserRepository();
-    }
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        return UserResource::collection($this->repo->simplePaginate(10));
+        return view('user::index');
     }
 
     /**
@@ -60,7 +53,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return new UserResource($this->repo->find($id));
+        return view('user::edit');
     }
 
     /**
@@ -71,7 +64,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        //
     }
 
     /**

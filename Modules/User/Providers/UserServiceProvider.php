@@ -9,7 +9,7 @@ class UserServiceProvider extends ServiceProvider
 {
 
     private $providers = [
-        'User'
+        'User', 'Permission', 'Role'
     ];
     /**
      * Indicates if loading of the provider is deferred.
