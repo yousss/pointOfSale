@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\User\Repositories\IWrapperRepository;
 use Modules\User\Transformers\UserResource;
+use Modules\User\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -21,26 +22,17 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection($this->repo->simplePaginate(10));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
-    public function create()
-    {
-        return view('user::create');
+        return UserResource::collection($this->repo->paginate(10));
     }
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
+     * @param UserRequest $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        
     }
 
     /**
