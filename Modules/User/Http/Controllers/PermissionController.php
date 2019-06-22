@@ -21,7 +21,7 @@ class PermissionController extends Controller
     }
     /**
      * Display a listing of the resource.
-     * @return PermissionResource
+     * @return PermissionResourceCollection
      */
     public function index()
     {
@@ -31,7 +31,7 @@ class PermissionController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
+     * @param PermissionRequest $request
      * @return PermissionResource
      */
     public function store(PermissionRequest $request)
