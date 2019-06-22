@@ -16,7 +16,7 @@ class RoleController extends Controller
 
     public function __construct( IWrapperRepository $repo ) 
     {
-        $this->repo = $repo->getPermissionRepository();
+        $this->repo = $repo->getRoleRepository();
     }
 
     /**
@@ -25,7 +25,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('user::index');
+        return RoleResource::collection( $this->repo->paginate(10) );
     }
 
     /**

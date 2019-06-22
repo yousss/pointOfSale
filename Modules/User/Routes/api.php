@@ -19,4 +19,5 @@ Route::post('register', 'PassportController@register');
 Route::group(['prefix' => 'admin',  'middleware' => 'auth:api'], function () {
     Route::resource('users', 'UserController');
     Route::resource('permissions', 'PermissionController')->except(['create']);
+    Route::resource('roles', 'RoleController');
 });
