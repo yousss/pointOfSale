@@ -21,7 +21,7 @@ class PermissionController extends Controller
     }
     /**
      * Display a listing of the resource.
-     * @return Response
+     * @return PermissionResource
      */
     public function index()
     {
@@ -32,9 +32,9 @@ class PermissionController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param Request $request
-     * @return Response
+     * @return PermissionResource
      */
-    public function store(PermissionResource $request)
+    public function store(PermissionRequest $request)
     {
         return new PermissionResource($this->repo->create($request->all()));
     }
@@ -42,19 +42,9 @@ class PermissionController extends Controller
     /**
      * Show the specified resource.
      * @param int $id
-     * @return Response
+     * @return PermissionResource
      */
     public function show($id)
-    {
-        return new PermissionResource($this->repo->find($id));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Response
-     */
-    public function edit($id)
     {
         return new PermissionResource($this->repo->find($id));
     }
@@ -63,7 +53,7 @@ class PermissionController extends Controller
      * Update the specified resource in storage.
      * @param Request $request
      * @param int $id
-     * @return Response
+     * @return PermissionResource
      */
     public function update(PermissionRequest $request, $id)
     {
@@ -73,7 +63,7 @@ class PermissionController extends Controller
     /**
      * Remove the specified resource from storage.
      * @param int $id
-     * @return Response
+     * @return code
      */
     public function destroy($id)
     {

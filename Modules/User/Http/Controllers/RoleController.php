@@ -5,9 +5,20 @@ namespace Modules\User\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\User\Http\Requests\RoleRequest;
+use Modules\User\Repositories\IWrapperRepository;
+use Modules\User\Transformers\RoleResource;
 
 class RoleController extends Controller
 {
+
+    private $repo; 
+
+    public function __construct( IWrapperRepository $repo ) 
+    {
+        $this->repo = $repo->getPermissionRepository();
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
