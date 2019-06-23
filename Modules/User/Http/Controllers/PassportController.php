@@ -7,6 +7,7 @@ use Modules\User\Entities\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\User\Transformers\AuthResource;
 use Modules\User\Repositories\IWrapperRepository;
 
 class PassportController extends Controller
@@ -31,10 +32,11 @@ class PassportController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
-            
-        $token = $user->createToken('pointOfSale')->accessToken;
+        auth()->login($user);    
+
+        // $token = $user->createToken('pointOfSale')->accessToken;
  
-        return response()->json(['token' => $token], 200);
+        return new AuthResource(collect([]));;
     }
  
     /**
@@ -52,8 +54,7 @@ class PassportController extends Controller
         ];
 
         if (auth()->attempt($credentials)) {
-            $token = auth()->user()->createToken('pointOfSale')->accessToken;
-            return response()->json(['token' => $token], 200);
+            return new AuthResource(collect([]));
         } else {
             return response()->json(['error' => 'UnAuthorised'], 401);
         }

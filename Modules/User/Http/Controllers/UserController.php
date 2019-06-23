@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\User\Repositories\IWrapperRepository;
 use Modules\User\Transformers\UserResource;
-use Modules\User\Http\Requests\UserRequest;
+use Modules\User\Http\Requests\UserProfileRequest;
 
 class UserController extends Controller
 {
@@ -28,29 +28,19 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param UserRequest $request
-     * @return Response
+     * @return UserResource
      */
-    public function store(UserRequest $request)
+    public function store(UserProfileRequest $request)
     {
-        
+        return new UserResource($this->repo->create($request->all()));
     }
 
     /**
      * Show the specified resource.
      * @param int $id
-     * @return Response
+     * @return UserResource
      */
     public function show($id)
-    {
-        return view('user::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Response
-     */
-    public function edit($id)
     {
         return new UserResource($this->repo->find($id));
     }
@@ -59,11 +49,11 @@ class UserController extends Controller
      * Update the specified resource in storage.
      * @param Request $request
      * @param int $id
-     * @return Response
+     * @return UserResource
      */
-    public function update(Request $request, $id)
+    public function update(UserProfileRequest $request, $id)
     {
-        
+        return new UserResource($this->repo->update($request->all(), $id));
     }
 
     /**
@@ -73,6 +63,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if($this->repo->delete($id))
+            return response()->json( null, 204 );
+
+        return response()->json( ['errors' => 'Unable to delete this resource' ], 422);
     }
 }
