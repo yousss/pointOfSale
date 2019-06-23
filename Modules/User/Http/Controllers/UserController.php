@@ -30,9 +30,14 @@ class UserController extends Controller
      * @param UserRequest $request
      * @return UserResource
      */
-    public function store(UserProfileRequest $request)
+    public function store(UserProfileRequest $request):UserResource
     {
-        return new UserResource($this->repo->create($request->all()));
+        $user = $this->repo->create($request->all());
+        if( $user ) {
+            $user->profiles()->create($request->all());
+            return new UserResource($user);
+        }
+        
     }
 
     /**
@@ -51,9 +56,14 @@ class UserController extends Controller
      * @param int $id
      * @return UserResource
      */
-    public function update(UserProfileRequest $request, $id)
+    public function update(UserProfileRequest $request, $id): UserResource
     {
-        return new UserResource($this->repo->update($request->all(), $id));
+        $user = $this->repo->update($request->all(), $id);
+        if ( $user ) {
+            $user->profiles()->update($request->except(['name', 'password', 'email']));
+            return new UserResource($user);
+        }
+        
     }
 
     /**

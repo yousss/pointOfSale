@@ -15,11 +15,8 @@ class UserProfileRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rule = [
             'name' => 'required|min:3',
-            'email' => ['required',
-                        Rule::unique('users')->ignore($this->id),
-                    ],
             'password' => 'required|min:10',
             'profile_first_name' => 'required',
             'profile_last_name' => 'required',
@@ -38,6 +35,11 @@ class UserProfileRequest extends FormRequest
             'is_shipping' => 'boolean',
             'profile_delete_at' => 'nullable|date',
         ];
+        if ( $this->isMethod('put') ) {
+            return $rule;
+        }
+
+        return $rule + ['email' => 'required|unique:users'];
     }
 
     /**
