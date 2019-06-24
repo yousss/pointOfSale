@@ -7,13 +7,14 @@
         <title>Module User</title>
 
        {{-- Laravel Mix - CSS File --}}
-       {{-- <link rel="stylesheet" href="{{ mix('css/user.css') }}"> --}}
+    <link rel="stylesheet" href="{{ mix('css/user.css') }}">
 
     </head>
     <body>
-        @yield('content')
-
+        <div id="app">
+            
+        </div>
         {{-- Laravel Mix - JS File --}}
-        {{-- <script src="{{ mix('js/user.js') }}"></script> --}}
+         <script src="{{ mix('js/user.js') }}"></script>
     </body>
 </html>

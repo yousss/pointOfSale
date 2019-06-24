@@ -27,7 +27,7 @@ class AddIndexToProfilesTable extends Migration
     public function down()
     {
         Schema::table('profiles', function (Blueprint $table) {
-
+            
         });
     }
 }

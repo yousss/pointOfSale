@@ -38,6 +38,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public static function boot() {
+        parent::boot();
+        static::deleted(function( $model ) {
+            $model->profiles()->delete();
+        });
+    }
+
     public function profiles() {
         return $this->hasMany(Profile::class, 'profile_user');
     }

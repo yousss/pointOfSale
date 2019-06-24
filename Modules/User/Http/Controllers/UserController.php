@@ -16,6 +16,7 @@ class UserController extends Controller
     public function __construct( IWrapperRepository $repo ) {
         $this->repo = $repo->getUserRepository();
     }
+
     /**
      * Display a listing of the resource.
      * @return Response
