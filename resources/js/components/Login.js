@@ -24,9 +24,8 @@ class Login extends Component {
         }
         axios.post(apiBaseUrl, payload)
         .then(function (response) {
-            console.log(response.status);
             if( response.status == 200 ){
-                console.log("Login successfull");
+                axios.defaults.headers.common['Authorization'] = 'Bearer '+response.data.data.token;
                 self.props.history.push('/master')
             }
             else if( response.status == 204 ){
